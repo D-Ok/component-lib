@@ -1,1 +1,1 @@
-export { default } from "./InfoIcon.jsx";
+export { default } from "./InfoIcon";

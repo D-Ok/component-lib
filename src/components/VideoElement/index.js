@@ -1,1 +1,1 @@
-export { default } from "./VideoElement.jsx";
+export { default } from "./VideoElement";

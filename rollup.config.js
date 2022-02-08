@@ -1,6 +1,8 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import { babel  } from '@rollup/plugin-babel';
+import { terser } from 'rollup-plugin-terser';
+import external from 'rollup-plugin-peer-deps-external';
+import {babel} from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss'
 
 const packageJson = require("./package.json");
@@ -13,31 +15,35 @@ export default [
                 file: packageJson.main,
                 format: "cjs",
                 sourcemap: true,
-                external: ['@emotion/styled', '@emotion/react'],
             },
             {
                 file: packageJson.module,
                 format: "esm",
                 sourcemap: true,
-                external: ['@emotion/styled', '@emotion/react'],
             },
         ],
+        external: [
+            '@mui/material',
+            'react',
+            'react-dom'
+        ],
         plugins: [
-            resolve(),
+            external({ deps: true }),
+            resolve({ extensions: ['.jsx', '.js', '.tsx', '.ts'] }),
             commonjs({
-                include: 'node_modules/**'
-            }),
-            babel({
-                exclude: 'node_modules/**',
-                babelHelpers: 'bundled',
-                presets: ['@babel/preset-env', '@babel/preset-react']
+                include: 'node_modules/**',
             }),
             postcss(),
+            babel({
+                extensions: ['.jsx', '.js', '.tsx'],
+                exclude: 'node_modules/**'
+            }),
+            terser(),
         ],
     },
     {
         input: "dist/esm/index.js",
         output: [{file: "dist/index.js", format: "esm"}],
-        external: [/\.css$/],
+        external: [/\.css$/, '@mui/material', 'react', 'react-dom'],
     },
 ];
