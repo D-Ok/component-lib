@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import AvatarLink from './AvatarLink';
+import {IAvatarLink} from "../../domain/interphases/IAvatarLink";
 
 describe('AvatarLink', () => {
-    let params = {};
+    let params: IAvatarLink;
     beforeEach(() => {
         params = {
             className: 'test-avatar-link',

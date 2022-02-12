@@ -14,6 +14,7 @@ module.exports = {
   features: {
     emotionAlias: false,
   },
+
   webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.scss$/,
@@ -22,14 +23,14 @@ module.exports = {
     });
 
     config.module.rules.push({
-      test: /\.(js|jsx)$/,
+      test: /\.(ts|tsx)$/,
       loader: require.resolve("babel-loader"),
       exclude: /(node_modules|dist)/,
       options: {
-        presets: [["react-app"]]
+        presets: [["react-app", { flow: false, typescript: true }]]
       }
     });
-    config.resolve.extensions.push(".js", ".jsx");
+    config.resolve.extensions.push(".ts", ".tsx");
 
     return config;
   }

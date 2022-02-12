@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React from "react";
 import { default as AvatarLink } from './AvatarLink';
 
 export default {

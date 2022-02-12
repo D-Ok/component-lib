@@ -1,4 +1,6 @@
 import resolve from "@rollup/plugin-node-resolve";
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
+import typescript from "rollup-plugin-typescript2";
 import commonjs from "@rollup/plugin-commonjs";
 import { terser } from 'rollup-plugin-terser';
 import external from 'rollup-plugin-peer-deps-external';
@@ -9,7 +11,7 @@ const packageJson = require("./package.json");
 
 export default [
     {
-        input: "src/index.js",
+        input: "src/index.ts",
         output: [
             {
                 file: packageJson.main,
@@ -22,12 +24,8 @@ export default [
                 sourcemap: true,
             },
         ],
-        external: [
-            '@mui/material',
-            'react',
-            'react-dom'
-        ],
         plugins: [
+            peerDepsExternal(),
             external({ deps: true }),
             resolve({ extensions: ['.jsx', '.js', '.tsx', '.ts'] }),
             commonjs({
@@ -39,11 +37,7 @@ export default [
                 exclude: 'node_modules/**'
             }),
             terser(),
+            typescript({ useTsconfigDeclarationDir: true }),
         ],
-    },
-    {
-        input: "dist/esm/index.js",
-        output: [{file: "dist/index.js", format: "esm"}],
-        external: [/\.css$/, '@mui/material', 'react', 'react-dom'],
-    },
+    }
 ];

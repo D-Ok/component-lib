@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Hashtag from './Hashtag';
+import {IHashtag} from "../../domain/interphases/IHashtag";
 
 describe('Hashtag', () => {
-    let params = {};
+    let params: IHashtag;
 
     beforeEach(() => {
         params = {

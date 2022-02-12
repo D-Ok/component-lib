@@ -1,9 +1,10 @@
 import { shallow } from 'enzyme'
 import Video from './Video'
 import React from 'react'
+import {IVideoContainer} from "../../domain/interphases/IVideo";
 
 describe('Video', () => {
-    let parameters = {}
+    let parameters: IVideoContainer;
 
     beforeEach(() => {
         parameters = {

@@ -1,17 +1,25 @@
-import React from 'react'
-import propTypes from 'prop-types'
+import React, { FC } from 'react';
 import classnames from 'classnames'
 import { Avatar, Link } from '@mui/material'
 
 import "./AvaterLink.css"
+import {IAvatarLink} from "../../domain/interphases/IAvatarLink";
 
-const AvatarLink = function ({
+const defaultProps = {
+  className: '',
+  uniqueId: '',
+  nickname: '',
+  avatar: '',
+  onClickHandler: () => 0,
+};
+
+const AvatarLink: FC<IAvatarLink> = ({
   uniqueId,
   nickname,
   avatar,
   className,
   onClickHandler,
-}) {
+}) => {
   const avatarClickHandler = () => onClickHandler(uniqueId)
 
   const avatarLinkClasses = classnames(
@@ -35,20 +43,5 @@ const AvatarLink = function ({
   )
 }
 
-AvatarLink.defaultProps = {
-  className: '',
-  uniqueId: '',
-  nickname: '',
-  avatar: '',
-  onClickHandler: () => 0,
-}
-
-AvatarLink.propTypes = {
-  uniqueId: propTypes.string,
-  nickname: propTypes.string,
-  avatar: propTypes.string,
-  className: propTypes.string,
-  onClickHandler: propTypes.func,
-}
-
+AvatarLink.defaultProps = defaultProps;
 export default AvatarLink

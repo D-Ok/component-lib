@@ -1,12 +1,26 @@
-import React from 'react'
-import propTypes from 'prop-types'
+import React, {FC} from 'react'
 import classnames from 'classnames'
 import { Icon, IconButton } from '@mui/material'
 
 import "./InfoIcon.css"
 import numberToText from '../../helpers/numberToText'
+import {InfoIconColors} from "../../domain/enums/InfoIcomColors";
+import {InfoIconFonts} from "../../domain/enums/InfoIconFonts";
+import {IInfoIcon} from "../../domain/interphases/IInfoIcon";
 
-const InfoIcon = function ({
+const defaultProps = {
+  icon: 'favorite',
+  color: InfoIconColors.error,
+  fontSize: InfoIconFonts.medium,
+  number: 0,
+  text: '',
+  iconSize: 0,
+  className: '',
+  disabled: false,
+}
+
+
+const InfoIcon: FC<IInfoIcon> = ({
   disabled,
   className,
   icon,
@@ -15,7 +29,7 @@ const InfoIcon = function ({
   text,
   fontSize,
   iconSize,
-}) {
+}) => {
   const sxObject = iconSize ? { fontSize: iconSize } : {}
   const textNumber = numberToText(number)
 
@@ -41,35 +55,6 @@ const InfoIcon = function ({
   )
 }
 
-InfoIcon.defaultProps = {
-  icon: 'favorite',
-  color: 'error',
-  fontSize: 'medium',
-  number: 0,
-  text: '',
-  iconSize: 0,
-  className: '',
-  disabled: false,
-}
-
-InfoIcon.propTypes = {
-  icon: propTypes.string,
-  number: propTypes.number,
-  text: propTypes.string,
-  color: propTypes.oneOf([
-    'inherit',
-    'default',
-    'primary',
-    'secondary',
-    'error',
-    'info',
-    'success',
-    'warning',
-  ]),
-  fontSize: propTypes.oneOf(['inherit', 'large', 'medium', 'small']),
-  iconSize: propTypes.number,
-  className: propTypes.string,
-  disabled: propTypes.bool,
-}
+InfoIcon.defaultProps = defaultProps
 
 export default InfoIcon

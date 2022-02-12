@@ -1,15 +1,18 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {shallow} from 'enzyme';
 import InfoIcon from './InfoIcon';
+import {IInfoIcon} from "../../domain/interphases/IInfoIcon";
+import {InfoIconColors} from "../../domain/enums/InfoIcomColors";
+import {InfoIconFonts} from "../../domain/enums/InfoIconFonts";
 
 describe('InfoIcon', () => {
-    let params = {};
+    let params: IInfoIcon;
 
     beforeEach(() => {
         params = {
             icon: 'favorite',
-            color: 'primary',
-            fontSize: 'inherit',
+            color: InfoIconColors.primary,
+            fontSize: InfoIconFonts.inherit,
             number: 999,
             text: 'test-text',
             iconSize: 10,

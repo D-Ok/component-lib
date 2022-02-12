@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import propTypes from 'prop-types'
+import React, { useEffect, useState, FC } from 'react'
 import classnames from 'classnames'
 import { useInView } from 'react-intersection-observer'
 
 import "./Video.css"
 import VideoElement from '../VideoElement'
+import {IVideoContainer} from "../../domain/interphases/IVideo";
 
-const Video = function ({
+const defaultProps = {
+  playOnView: false,
+  className: '',
+  muted: true,
+  videoUrl: '',
+}
+
+const Video: FC<IVideoContainer> = ({
   muted,
   playOnView,
   videoUrl,
   className,
-}) {
+}) => {
   const [isLoad, setIsLoad] = useState(false)
 
   const { ref, inView } = useInView({
@@ -40,18 +47,6 @@ const Video = function ({
   )
 }
 
-Video.defaultProps = {
-  playOnView: false,
-  className: '',
-  muted: true,
-  videoUrl: '',
-}
-
-Video.propTypes = {
-  videoUrl: propTypes.string,
-  className: propTypes.string,
-  playOnView: propTypes.bool,
-  muted: propTypes.bool,
-}
+Video.defaultProps = defaultProps
 
 export default Video

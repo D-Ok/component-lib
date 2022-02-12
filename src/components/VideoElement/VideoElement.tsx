@@ -1,16 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, FC } from 'react'
 import { useInView } from 'react-intersection-observer'
-import propTypes from 'prop-types'
 import classnames from 'classnames'
 
 import "./VideoElement.css"
 
 import InfoIcon from '../InfoIcon'
 import videoController from '../../helpers/videoController'
+import {IVideoElement} from "../../domain/interphases/IVideo";
+import {InfoIconColors} from "../../domain/enums/InfoIcomColors";
 
-const VideoElement = function ({
+const defaultProps = {
+  muted: true,
+  isLoad: false,
+  playOnView: true,
+  videoUrl: ''
+}
+
+const VideoElement: FC<IVideoElement> = ({
   videoUrl, isLoad, playOnView, muted,
-}) {
+}) => {
   const [isPlay, setIsPlay] = useState(false)
   const videoElement = useRef(null)
 
@@ -50,7 +58,7 @@ const VideoElement = function ({
       />
       <div className={buttonClasses} onClick={onVideoClick}>
         <InfoIcon
-          color="default"
+          color={InfoIconColors.default}
           icon="play_arrow"
           iconSize={100}
         />
@@ -59,18 +67,6 @@ const VideoElement = function ({
   )
 }
 
-VideoElement.defaultProps = {
-  muted: true,
-  isLoad: false,
-  playOnView: true,
-  videoUrl: ''
-}
-
-VideoElement.propTypes = {
-  videoUrl: propTypes.string,
-  playOnView: propTypes.bool,
-  muted: propTypes.bool,
-  isLoad: propTypes.bool,
-}
+VideoElement.defaultProps = defaultProps
 
 export default VideoElement
