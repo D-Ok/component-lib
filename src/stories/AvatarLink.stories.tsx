@@ -1,5 +1,5 @@
 import React from "react";
-import { default as AvatarLink } from './AvatarLink';
+import { default as AvatarLink } from '../components/AvatarLink/AvatarLink';
 
 export default {
     title: 'Library/AvatarLink',

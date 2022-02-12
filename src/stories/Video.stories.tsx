@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { default as Video } from './Video';
+import { default as Video } from '../components/Video/Video';
 
 export default {
     title: 'Library/Video',

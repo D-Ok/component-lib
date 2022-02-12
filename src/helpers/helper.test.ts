@@ -1,37 +1,42 @@
 import videoController from './videoController'
 import numberToText from './numberToText'
 
+const videoControlsDefinition = {
+  configurable: true,
+  get () {
+    setTimeout(() => (this.onloadeddata && this.onloadeddata()))
+    return () => {}
+  }
+}
+
+Object.defineProperty(global.window.HTMLMediaElement.prototype, 'play', videoControlsDefinition)
+Object.defineProperty(global.window.HTMLMediaElement.prototype, 'pause', videoControlsDefinition)
+
 describe('helpers', () => {
 
   describe('videoController', () => {
-    let videoEl;
-    let pause ;
-    let play ;
+    let videoEl: HTMLVideoElement;
 
     beforeEach( () => {
       videoEl = document.createElement('video')
-
-      pause = jest
-          .spyOn(window.HTMLMediaElement.prototype, 'pause')
-          .mockImplementation(() => {})
-
-      play = jest
-          .spyOn(window.HTMLMediaElement.prototype, 'play')
-          .mockImplementation(() => {})
     })
 
     it('Should be available to pause ', () => {
+      let pause = jest.spyOn(window.HTMLMediaElement.prototype, 'pause')
+      let play = jest.spyOn(window.HTMLMediaElement.prototype, 'play')
+
       videoController(videoEl, true);
 
-      expect(pause).toBeCalled();
-      expect(play).not.toBeCalled();
+      expect(pause).toHaveBeenCalled();
+      expect(play).not.toHaveBeenCalled();
     })
 
     it('Should be available to play ', () => {
-      videoController(videoEl);
+      let play = jest.spyOn(window.HTMLMediaElement.prototype, 'play')
 
-      expect(pause).not.toBeCalled();
-      expect(play).toBeCalled();
+      videoController(videoEl, false);
+
+      expect(play).toHaveBeenCalled();
     })
   })
 
@@ -40,9 +45,10 @@ describe('helpers', () => {
     it('Should not be changed if less 1000', () => {
 
       const numbers = [999, 0, -1];
-      numbers.forEach((n) => {
+      const expects = ['999', undefined, undefined];
+      numbers.forEach((n, i) => {
         let result = numberToText(n)
-        expect(result).toBe(n);
+        expect(result).toBe(expects[i]);
       })
 
     })

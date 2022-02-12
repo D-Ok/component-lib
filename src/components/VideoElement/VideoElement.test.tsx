@@ -4,10 +4,12 @@ import React from 'react'
 
 jest.mock('../../helpers/videoController');
 import videoController from '../../helpers/videoController';
+import {IVideoElement} from "../../domain/interphases/IVideo";
+import {VideoControllerType} from "../../domain/types/VideoControllerType";
 
 
 describe('VideoElement', () => {
-    let parameters = {}
+    let parameters: IVideoElement;
     let wrapper;
 
     beforeEach(() => {
@@ -38,7 +40,8 @@ describe('VideoElement', () => {
 
     it('Should change state onClick', () => {
         const play = jest.fn();
-        videoController.mockImplementation(play);
+        const mockController = videoController as jest.Mock<VideoControllerType>;
+        mockController.mockImplementation(play);
 
         wrapper = shallow(<VideoElement {...parameters} />)
         const videoEl = wrapper.find('video');

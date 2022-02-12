@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { default as InfoIcon } from './InfoIcon';
+import { default as InfoIcon } from '../components/InfoIcon/InfoIcon';
 
 export default {
     title: 'Library/InfoIcon',
