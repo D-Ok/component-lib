@@ -1,5 +1,5 @@
 export default (number) => {
-  if (Number.isNaN(number)) return
+  if (!number || Number.isNaN(number)) return
 
   switch (true) {
     case number < 1000:

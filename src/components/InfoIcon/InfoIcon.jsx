@@ -4,7 +4,6 @@ import classnames from 'classnames'
 import { Icon, IconButton } from '@mui/material'
 
 import "./InfoIcon.css"
-
 import numberToText from '../../helpers/numberToText'
 
 const InfoIcon = function ({
