@@ -5,7 +5,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import { terser } from 'rollup-plugin-terser';
 import external from 'rollup-plugin-peer-deps-external';
 import {babel} from '@rollup/plugin-babel';
-import postcss from 'rollup-plugin-postcss'
+import postcss from 'rollup-plugin-postcss';
 
 const packageJson = require("./package.json");
 
@@ -33,11 +33,11 @@ export default [
             }),
             postcss(),
             babel({
-                extensions: ['.jsx', '.js', '.tsx'],
+                extensions: ['.jsx', '.js', '.tsx', 'ts'],
                 exclude: 'node_modules/**'
             }),
             terser(),
-            typescript({ useTsconfigDeclarationDir: true }),
+            typescript({ tsconfig: './tsconfig.json' }),
         ],
     }
 ];
